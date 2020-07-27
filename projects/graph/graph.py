@@ -34,7 +34,7 @@ class Graph:
         """
         Get all neighbors (edges) of a vertex.
         """
-        pass  # TODO
+        return self.vertices[vertex_id]
 
     def bft(self, starting_vertex):
         """
@@ -88,7 +88,12 @@ class Graph:
 
 gg = Graph()
 gg.add_vertex(5)
-gg.add_edge(5, 3)
+gg.add_vertex(3)
+gg.add_vertex(50)
+
+gg.add_edge(5, 50)
+
+print(gg.get_neighbors(50))
 # if __name__ == '__main__':
 #     graph = Graph()  # Instantiate your graph
 #     # https://github.com/LambdaSchool/Graphs/blob/master/objectives/breadth-first-search/img/bfs-visit-order.png
