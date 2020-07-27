@@ -13,7 +13,10 @@ class Graph:
         """
         Add a vertex to the graph.
         """
-        pass  # TODO
+        if vertex_id not in self.vertices:
+            self.vertices[vertex_id] = set()
+        else:
+            raise Exception(f"Vertex with id {vertex_id} already exists")
 
     def add_edge(self, v1, v2):
         """
