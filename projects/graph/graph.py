@@ -120,7 +120,32 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
+        if starting_vertex not in self.vertices or destination_vertex not in self.vertices:
+            raise Exception(
+                "Error BFT: starting/destination vertex not a member of the graph")
+
+        qq = Queue()
+        # Enqueue starting vet, in a list as path
+        qq.enqueue([starting_vertex])
+        # Keep track of visited nodes and all the path.
+        visited = set()
+
+        while qq.size() > 0:
+            path = qq.dequeue()
+
+            if path[-1] == destination_vertex:
+                return path
+
+            if path[-1] not in visited:
+                print(path[-1])
+
+                for neighbor in self.get_neighbors(path[-1]):
+                    new_path = path.copy()
+                    new_path.append(neighbor)
+
+                    qq.enqueue(new_path)
+
+                visited.add(path[-1])
 
     def dfs(self, starting_vertex, destination_vertex):
         """
@@ -128,7 +153,23 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        pass  # TODO
+        stack = Stack()
+        visited = set()
+        stack.push([starting_vertex])
+
+        while stack.size() > 0:
+            path = stack.pop()
+
+            if path[-1] == destination_vertex:
+                return path
+
+            if path[-1] not in visited:
+                for neighbor in self.vertices[path[-1]]:
+                    new_path = list(path)
+                    new_path.append(neighbor)
+                    stack.push(new_path)
+
+                visited.add(path[-1])
 
     def dfs_recursive(self, starting_vertex, destination_vertex):
         """
@@ -139,6 +180,7 @@ class Graph:
         This should be done using recursion.
         """
         pass  # TODO
+
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
@@ -206,4 +248,4 @@ if __name__ == '__main__':
         [1, 2, 4, 7, 6]
     '''
     print(graph.dfs(1, 6))
-#     print(graph.dfs_recursive(1, 6))
+    print(graph.dfs_recursive(1, 6))
