@@ -52,7 +52,7 @@ class Graph:
         qq = Queue()
         # Enqueue starting vet, in a list as path
         qq.enqueue([starting_vertex])
-        # Keep track of visited nodes and all the path. 
+        # Keep track of visited nodes and all the path.
         # Final_path as a list neede cos sets don't keep track of order,
         # and lookup is time expensive in list
         visited = set()
@@ -72,16 +72,31 @@ class Graph:
                     qq.enqueue(new_path)
 
                 visited.add(path[-1])
-            
+
         print(final_path)
- 
+
     def dft(self, starting_vertex):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
-        
-        
+        stack = Stack()
+        stack.push(starting_vertex)
+        visited = set()
+
+        while stack.size() > 0:
+            current = stack.pop()
+
+            if current not in visited:
+                print(current)
+
+                for neighbor in self.vertices[current]:
+                    stack.push(neighbor)
+
+                visited.add(current)
+
+    visited_dftr = set()
+
     def dft_recursive(self, starting_vertex):
         """
         Print each vertex in depth-first order
@@ -89,7 +104,15 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        if starting_vertex in self.visited_dftr:
+            return
+
+        self.visited_dftr.add(starting_vertex)
+        print(starting_vertex)
+
+        for neighbor in self.vertices[starting_vertex]:
+            if neighbor not in self.visited_dftr:
+                self.dft_recursive(neighbor)
 
     def bfs(self, starting_vertex, destination_vertex):
         """
@@ -116,31 +139,6 @@ class Graph:
         This should be done using recursion.
         """
         pass  # TODO
-
-
-# gg = Graph()
-# gg.add_vertex(5)
-# gg.add_vertex(3)
-# gg.add_vertex(50)
-# gg.add_vertex(52)
-# gg.add_vertex(78)
-
-# gg.add_edge(5, 50)
-# gg.add_edge(50, 5)
-# gg.add_edge(3, 78)
-# gg.add_edge(78, 3)
-# gg.add_edge(5, 78)
-# gg.add_edge(78, 5)
-# gg.add_edge(50, 52)
-# gg.add_edge(52, 50)
-# gg.add_edge(52, 5)
-# gg.add_edge(5, 52)
-# gg.add_edge(78, 50)
-# gg.add_edge(50, 78)
-
-
-# print(gg.get_neighbors(50))
-# gg.bft(3)
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
